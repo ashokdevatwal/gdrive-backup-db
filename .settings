@@ -1,0 +1,16 @@
+# local backup path
+localPath=/db_backup/
+
+# Set false If Single DB
+multiDB=false
+
+# Used For Single DB or Root Cerdentails
+mysqlUser='root'
+mysqlPassword=''
+
+# Multi DB with Multi user set become to false
+become=false
+numberOfDBS=1
+
+#databases 
+db1='ars'
