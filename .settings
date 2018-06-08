@@ -1,5 +1,11 @@
-# local backup path
+# Backup Mode => gdrive | local
+backupMode=gdrive
+
+# Local Backup Path
 localPath=/db_backup/
+
+# Google Drive Backup Root Folder
+gdriveDir=DataBaseBackup
 
 # Set false If Single DB
 multiDB=false
