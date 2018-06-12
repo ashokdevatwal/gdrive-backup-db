@@ -70,7 +70,12 @@ if [ "$multiDB" == "true" ]; then
 	done 
     else
         # Multi DBS with Multi users    
-	echo "multi db multi user"
+	for database in "${databaseName[@]}"; do
+           i=0
+	   mysqlUser=${dbusers[$i]}
+	   dbpasswords=${dbusers[$i]}
+	   databaseBackup $database	
+	done 
     fi
 else   
     databaseBackup $databaseName	

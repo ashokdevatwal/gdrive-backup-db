@@ -1,7 +1,7 @@
 #########################################
 # Backup Mode      		        #
 #                                       #
-# Local Backup => backupMode=local      #
+# Local Backup  => backupMode=local     #
 # Gdrive Backup => backupMode=gdrive    #
 #                                       #
 #########################################
@@ -26,18 +26,18 @@ gdriveDir=DataBaseBackup
 
 multiDB=true
 
+#################################################
+# Multi DB with Multi user set become to false  #
+#################################################
+
+become=false
+
 ##########################################
 # Used For Single DB or Root Cerdentails #
 ##########################################
 
 mysqlUser='root'
 mysqlPassword=''
-
-#################################################
-# Multi DB with Multi user set become to false  #
-#################################################
-
-become=true
 
 ####################################################
 # List of databases				   #
@@ -48,5 +48,16 @@ become=true
 ####################################################
  
 databaseName=(ars testdb)
+
+###################################################]
+# Multi Users					  #
+#						  #
+#  dbusers=(user1 user2 user3)			  #
+#  dbpasswords=(user1_pass user2_pass user3_pass) #
+#						  #
+###################################################
+
+dbusers=(root root)
+dbpasswords=('' '')
 
 
