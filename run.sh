@@ -26,6 +26,7 @@ fi
 
 function databaseBackup(){
   database=$1
+  	
   # Local Backup Dir
   mkdir -p $localPath$database
     
@@ -33,7 +34,11 @@ function databaseBackup(){
   backupFile=$localPath$database"/"$database.sql
 	
   #Back up the Mysql Database
-  mysqldump --user=$mysqlUser --password=$mysqlPassword $database > $backupFile
+  if [ "$database" == "fulldump" ];then
+    mysqldump --user=$mysqlUser --password=$mysqlPassword --all-databases > $backupFile
+  else
+    mysqldump --user=$mysqlUser --password=$mysqlPassword $database > $backupFile
+  fi
   echo "Local Backup Created"
   echo "Path : $backupFile"
 
@@ -59,8 +64,9 @@ function databaseBackup(){
 
 # Start Backup
 #####################
-
-if [ "$multiDB" == "true" ]; then
+if [ "$fulldump" == "true" ]; then
+    databaseBackup fulldump
+elif [ "$multiDB" == "true" ]; then
     # Multiple database
     if [ "$become" == "true" ]; then
         # Multi DBS with root user
