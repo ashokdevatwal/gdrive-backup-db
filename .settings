@@ -6,44 +6,63 @@
 #                                       #
 #########################################
 
-backupMode=gdrive
+backupMode=
 
-#################################
-# Local Backup Path             #
-#################################
+#########################################
+# Local Backup Path             	#
+# * Abslute path to Backup Root Dir *	#
+#					#
+# localPath=/db_backup/			#
+#########################################
 
-localPath=/db_backup/
+localPath=
 
 ###################################
 # Google Drive Backup Root Folder #
+#				  #
+# gdriveDir=MyBackUp		  #
 ###################################
 
-gdriveDir=DataBaseBackup
+gdriveDir=
 
 ###############################
-# Set false If Single DB      #
+# Multi DB Mode		      #
+#			      #
+# multiDB=true		      #
+# multiDB=false		      #
 ###############################
 
-multiDB=true
+multiDB=
 
 #################################################
-# Multi DB with Multi user set become to false  #
+# Use Root User For Backup			#
+#						#
+# become=true					#
+# become=false					#
 #################################################
 
-become=false
+become=
 
 #################################################
 # Full Database Backup				#
+# * dump all databases of mysql *		#
+#						#
+# fulldump=true					#
+# fulldump=false				#
 #################################################
 
-fulldump=true
+fulldump=
 
 ##########################################
-# Used For Single DB or Root Cerdentails #
+# MySql Root Cerdentails 		 #	
+#					 #
+#					 #
+# mysqlUser='root'			 #
+# mysqlPassword='123'			 #
 ##########################################
 
-mysqlUser='root'
-mysqlPassword=''
+mysqlUser=
+mysqlPassword=
 
 ####################################################
 # List of databases				   #
@@ -53,7 +72,7 @@ mysqlPassword=''
 #						   #
 ####################################################
  
-databaseName=(ars testdb)
+databaseName=
 
 ###################################################]
 # Multi Users					  #
@@ -63,8 +82,8 @@ databaseName=(ars testdb)
 #						  #
 ###################################################
 
-dbusers=(root root)
-dbpasswords=('' '')
+dbusers=
+dbpasswords=
 
 
 
