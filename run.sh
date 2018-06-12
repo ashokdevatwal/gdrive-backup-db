@@ -3,6 +3,14 @@
 # Load Settings file 
 . .settings
 
+
+# Local Backup Root Dir
+#######################
+mkdir -p $localPath
+
+
+# Gdrive Backup Root Dir
+#######################
 if [ "$backupMode" == "gdrive" ]; then		
    #Check Gdrive backup Root folder exists on gdrive
    gdriveRSID=$(gdrive list --no-header | grep $gdriveDir | grep dir | awk '{ print $1}')
@@ -13,41 +21,58 @@ if [ "$backupMode" == "gdrive" ]; then
 fi
 
 
-# Local Backup Root Dir
-mkdir -p $localPath
+#  BASE FUNCTIONS
+#########################
+
+function databaseBackup(){
+  database=$1
+  # Local Backup Dir
+  mkdir -p $localPath$database
+    
+  # Local Backup file
+  backupFile=$localPath$database"/"$database.sql
+	
+  #Back up the Mysql Database
+  mysqldump --user=$mysqlUser --password=$mysqlPassword $database > $backupFile
+  echo "Local Backup Created"
+  echo "Path : $backupFile"
+
+  if [ "$backupMode" == "gdrive" ]; then
+    #Check Gdrive backup folder exists on gdrive
+    gdriveSID=$(gdrive list --no-header | grep $database | grep dir | awk '{ print $1}')
+    if [ -z "$gdriveSID" ]; then
+      gdrive mkdir --parent $gdriveRSID $database
+      gdriveSID=$(gdrive list --no-header | grep $database | grep dir | awk '{ print $1}')
+      fi
+    #Upload Mysql database
+    gdrive upload --parent $gdriveSID $backupFile
+  fi
+
+  
+
+}
+
+# END databaseBackup
+#########################
+
+
+
+# Start Backup
+#####################
 
 if [ "$multiDB" == "true" ]; then
     # Multiple database
     if [ "$become" == "true" ]; then
         # Multi DBS with root user
-	echo "multidb root"
+	echo "Multi DBS"
+	for database in "${databaseName[@]}"; do
+           databaseBackup $database	
+	done 
     else
         # Multi DBS with Multi users    
 	echo "multi db multi user"
     fi
 else   
-    # Local Backup Dir
-    mkdir -p $localPath$db1
-    
-    # Local Backup file
-    backupFile=$localPath$db1"/"$db1.sql
-	
-    #Back up the Mysql Database
-    mysqldump --user=$mysqlUser --password=$mysqlPassword $db1 > $backupFile
-    echo "Local Backup Created"
-    echo "Path : $backupFile"
-
-    if [ "$backupMode" == "gdrive" ]; then
-	#Check Gdrive backup folder exists on gdrive
-        gdriveSID=$(gdrive list --no-header | grep $db1 | grep dir | awk '{ print $1}')
-        if [ -z "$gdriveSID" ]; then
-         gdrive mkdir --parent $gdriveRSID $db1
-         gdriveSID=$(gdrive list --no-header | grep $db1 | grep dir | awk '{ print $1}')
-        fi
-    fi
-
-    #Upload Mysql database
-    gdrive upload --parent $gdriveSID $backupFile	
-
+    databaseBackup $databaseName	
 fi
 

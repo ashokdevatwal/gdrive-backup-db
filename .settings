@@ -1,22 +1,52 @@
-# Backup Mode => gdrive | local
+#########################################
+# Backup Mode      		        #
+#                                       #
+# Local Backup => backupMode=local      #
+# Gdrive Backup => backupMode=gdrive    #
+#                                       #
+#########################################
+
 backupMode=gdrive
 
-# Local Backup Path
+#################################
+# Local Backup Path             #
+#################################
+
 localPath=/db_backup/
 
-# Google Drive Backup Root Folder
+###################################
+# Google Drive Backup Root Folder #
+###################################
+
 gdriveDir=DataBaseBackup
 
-# Set false If Single DB
-multiDB=false
+###############################
+# Set false If Single DB      #
+###############################
 
-# Used For Single DB or Root Cerdentails
+multiDB=true
+
+##########################################
+# Used For Single DB or Root Cerdentails #
+##########################################
+
 mysqlUser='root'
 mysqlPassword=''
 
-# Multi DB with Multi user set become to false
-become=false
-numberOfDBS=1
+#################################################
+# Multi DB with Multi user set become to false  #
+#################################################
 
-#databases 
-db1='ars'
+become=true
+
+####################################################
+# List of databases				   #
+#						   #
+# > Single DB => databaseName=dbname		   # 
+# > Milti DB  => databaseName=(db1 db2 db3 db4)	   #
+#						   #
+####################################################
+ 
+databaseName=(ars testdb)
+
+
